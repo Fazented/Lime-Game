@@ -97,11 +97,6 @@ class Player(pygame.sprite.Sprite):
                 self.spawn_protected = False
 
     def take_damage(self):
-
-        self.current_health -= 1
-        self.rect.x = 500
-        self.rect.y = 400
-
         if not self.spawn_protected:
             self.current_health -= 1
             self.rect.x = 500
