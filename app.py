@@ -25,7 +25,7 @@ healthbarcount = 2 # Sets the lives for the player, Default 2
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Fuck off") # Game window name
+pygame.display.set_caption("Family Frindley Python Game") # Game window name
 clock = pygame.time.Clock()
 
 # Define colors
