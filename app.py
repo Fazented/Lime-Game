@@ -321,8 +321,8 @@ while running:
         screen.blit(timer_text, (10, 50))
 
         # TEST DRAW HEALTH
-        healthtest = font.render("Health: " + str(player.current_health), True, WHITE)
-        screen.blit(healthtest, (10, 70))
+        #healthtest = font.render("Health: " + str(player.current_health), True, WHITE)
+        #screen.blit(healthtest, (10, 70))
 
 
 
