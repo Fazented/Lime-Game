@@ -108,11 +108,11 @@ class Player(pygame.sprite.Sprite):
                 self.spawn_protection_timer = self.spawn_protection_duration
 
     def increase_score_health(self):
-        if self.max_health < self.current_health:
+        if self.current_health < self.max_health:
             self.current_health += 1
-            self.score += 1
-        else:
-            self.score += 1
+            if self.current_health > self.max_health:  # Add this condition to prevent exceeding max health
+                self.current_health = self.max_health
+        self.score += 1
 
 # Define enemy class
 class Enemy(pygame.sprite.Sprite):
@@ -165,18 +165,20 @@ class HealthBar(pygame.sprite.Sprite):
     def __init__(self, player):
         super().__init__()
         self.player = player
-        self.max_health = healthbarcount
-        self.current_health = self.max_health
+        self.max_health = player.max_health  # Use the player's max health
+        self.current_health = player.current_health  # Use the player's current health
         self.width = 200
         self.height = 20
         self.image = pygame.Surface((self.width, self.height))
         self.rect = self.image.get_rect()
         self.update_position()
-        self.update_color()  # Add this line to initialize the health bar color
+        self.update_color()
 
     def update(self):
+        # Update health bar based on player's current health
+        self.current_health = self.player.current_health
         self.update_position()
-        self.update_color()  # Add this line to update the health bar color
+        self.update_color()
 
     def update_position(self):
         self.rect.centerx = WIDTH / 2
@@ -296,7 +298,6 @@ while running:
         for powerup in powerup_hits:
             powerup_sound.play()
             player.increase_score_health()
-            player.max_health += 1
             if player.score >= score_to_win:
                 win = True
                 game_over = True
