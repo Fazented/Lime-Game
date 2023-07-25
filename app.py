@@ -25,7 +25,7 @@ healthbarcount = 2 # Sets the lives for the player, Default 2
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Family Frindley Python Game") # Game window name
+pygame.display.set_caption("Family Friendly Python Game") # Game window name
 clock = pygame.time.Clock()
 
 # Define colors
@@ -280,7 +280,6 @@ while running:
             all_sprites.add(powerup)
             powerups.add(powerup)
 
-
     if not game_over:
         # Update
         all_sprites.update()
@@ -291,7 +290,6 @@ while running:
             if hits:
                 collision_sound.play()
                 player.take_damage()
-
 
         # Check for collisions between player and power-ups
         powerup_hits = pygame.sprite.spritecollide(player, powerups, True)
@@ -323,8 +321,6 @@ while running:
         # TEST DRAW HEALTH
         #healthtest = font.render("Health: " + str(player.current_health), True, WHITE)
         #screen.blit(healthtest, (10, 70))
-
-
 
     if game_over:
         # Draw game over message
