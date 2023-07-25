@@ -191,6 +191,37 @@ class HealthBar(pygame.sprite.Sprite):
         else:
             self.image.fill(RED)
 
+# Define health_regenbar class
+class Health_RegenBar(pygame.sprite.Sprite):
+    def __init__(self, player):
+        super().__init__()
+        self.player = player
+        self.max_health = player.max_health  # Use the player's max health
+        self.current_health = player.current_health  # Use the player's current health
+        self.width = 200
+        self.height = 5
+        self.image = pygame.Surface((self.width, self.height))
+        self.rect = self.image.get_rect()
+        self.update_position()
+        self.update_color()
+
+    def update(self):
+        # Update health bar based on player's current health
+        self.current_health = self.player.current_health
+        self.update_position()
+        self.update_color()
+
+    def update_position(self):
+        self.rect.centerx = WIDTH / 2
+        self.rect.y = 32
+
+    def update_color(self):
+        health_ratio = player.current_health / player.max_health
+        if health_ratio > 0.5:
+            self.image.fill(WHITE)
+        else:
+            self.image.fill(RED)
+
 # Load sound effects
 pygame.mixer.music.load(os.path.join("sounds", "background_music.mp3"))
 pygame.mixer.music.set_volume(0.08) # Default 0.08
@@ -226,6 +257,10 @@ for _ in range(powerupspawner):
 # Create health bar
 health_bar = HealthBar(player)
 all_sprites.add(health_bar)
+
+# Create the health regen bar
+regen_bar = Health_RegenBar(player)
+all_sprites.add(regen_bar)
 
 # Game variables
 game_over = False
@@ -268,7 +303,8 @@ while running:
         # Create a new player and health bar
         player = Player()
         health_bar = HealthBar(player)
-        all_sprites.add(player, health_bar)
+        regen_bar = Health_RegenBar(player)
+        all_sprites.add(player, health_bar, regen_bar)
 
         for _ in range(enemiespawner):
             enemy = Enemy()
